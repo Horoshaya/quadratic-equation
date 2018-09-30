@@ -1,25 +1,17 @@
 module.exports = function solveEquation(equation) {
-	equation = equation.split('^2 ');
-	equation = equation.join('');
-	equation = equation.split(' * x');
+	let equationNumbers = equation.split('^2 ').join('').split(' * x');
 
-	for (var i = 0; equation.length - 1 >= i; i++) {
-		var elem = equation[i].split(' ');
-		elem = elem.join('');
-		equation[i] = elem;
+	for (let i = 1, equationLength = equationNumbers.length; equationLength > i; i++) {
+		equationNumbers[i] = equationNumbers[i].split(' ').join('');;
 	}
 
-	equation = equation.map(Number);
+	let x = [],
+		D = equationNumbers[1] * equationNumbers[1] - 4 * equationNumbers[0] * equationNumbers[2];
 
-	var x = [];
-		D = equation[1] * equation[1] - 4 * equation[0] * equation[2];
+	x[0] = Math.round((- equationNumbers[1] + Math.sqrt(D)) / (2 * equationNumbers[0]));
+	x[1] = Math.round((- equationNumbers[1] - Math.sqrt(D)) / (2 * equationNumbers[0]));
 
-	x[0] = Math.round((- equation[1] + Math.sqrt(D)) / (2 * equation[0]));
-	x[1] = Math.round((- equation[1] - Math.sqrt(D)) / (2 * equation[0]));
-
-	x.sort(function(a,b) {
-		return a - b;
-	});
+	x.sort((a,b) => {return a - b});
 
 	return x;
 }
